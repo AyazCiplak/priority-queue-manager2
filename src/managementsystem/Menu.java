@@ -1,6 +1,8 @@
+package managementsystem;
+
 import java.util.Scanner;
 
-public class QueueManager{
+public class Menu {
 
     public static void main(String[] args){
         Scanner testScanner = new Scanner(System.in);
