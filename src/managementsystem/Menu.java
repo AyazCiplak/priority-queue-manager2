@@ -13,4 +13,28 @@ public class Menu {
         System.out.println("Number is: " + testNum);
     }
 
+    void initialMessage() {
+
+    }
+
+    void mainOptions() {
+
+    }
+
+    void listMenu() {
+
+    }
+
+    void addMenu() {
+
+    }
+
+    void removeMenu() {
+
+    }
+
+    void checkMenu() {
+        
+    }
+
 }
