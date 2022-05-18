@@ -154,7 +154,7 @@ public class Menu {
     }
 
     void priorityChange() {
-        //change a patient's priority
+        //change a patient's priority function
 
     }
 
