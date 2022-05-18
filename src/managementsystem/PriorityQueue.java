@@ -3,9 +3,36 @@ package managementsystem;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class QueueManager{
+public class PriorityQueue{
 
-    //Patient manipulation methods
+    //Note: A lower priority value indicates a higher priority. A patient with a priority value of 0.0 has the highest possible priority.
+
+    ArrayList<Patient> patients;
+    HashMap<String, Integer> nameToIndex;
+
+    PriorityQueue() {
+
+        patients = new ArrayList<Patient>();
+        nameToIndex = new HashMap<String, Integer>();
+
+        //Dummy node is created to start indexing at 1
+        patients.add(new Patient("dummy", 0.0));
+
+    }
+
+    //Heap element methods
+    private int parent(int i){
+        return i/2;
+    }
+
+    private int leftChild(int i){
+        return 2*i;
+    }
+
+    private int rightChild(int i){
+        return 2*i + 1;
+    }
+
 
     static class Patient {
         private String name;
@@ -43,7 +70,7 @@ public class QueueManager{
         //Compares a Patient and any other Object
         public boolean equals (Object obj) {
             //Case: Object isn't a Patient object
-            if(!(obj instanceof QueueManager.Patient)) return false;
+            if(!(obj instanceof PriorityQueue.Patient)) return false;
 
             Patient objPatient = (Patient) obj;
 
