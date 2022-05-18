@@ -33,6 +33,45 @@ public class PriorityQueue{
         return 2*i + 1;
     }
 
+    //swaps two elements in the ArrayList and HashMap
+    void swap(int i, int j){
+        Patient tmp = patients.get(i);
+        patients.set(i, patients.get(j));
+        patients.set(j, tmp);
+
+        nameToIndex.remove(i);
+        nameToIndex.remove(j);
+        nameToIndex.put(patients.get(j).name, j);
+        nameToIndex.put(patients.get(i).name, i);
+    }
+
+    void upHeap(int i){
+        //upHeaps recursively as long as the patient isn't at the top of the minHeap
+        if(i > 1){
+            int parentIndex = parent(i);
+
+            if(patients.get(i).priority < patients.get(parentIndex).priority) {
+                swap(i, parentIndex);
+                upHeap(parentIndex);
+            }
+        }
+    }
+
+    void downHeap(int i){
+        int minIndex = i;
+        int rcIndex = rightChild(i);
+        int lcIndex = leftChild(i);
+
+        double priority = patients.get(i).priority;
+        double lcPriority = Double.POSITIVE_INFINITY;
+        double rcPriority = Double.POSITIVE_INFINITY;
+
+        if (rcIndex < patients.size()) {rcPriority = patients.get(rcIndex).priority;}
+        if(lcIndex < patients.size()) {lcPriority = patients.get(lcIndex).priority;}
+
+    }
+
+
 
     static class Patient {
         private String name;
