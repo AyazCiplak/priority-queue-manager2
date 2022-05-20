@@ -4,10 +4,13 @@ import java.util.Scanner;
 
 public class Menu {
 
+    PriorityQueue queue = new PriorityQueue();
+
     void initialMessage() {
         System.out.println("\nThis program is designed to simulate an emergency room priority queue, " +
                 "with patients being sorted based on an assigned numerical priority value. \nThe list can be manipulated " +
-                "in a variety of ways - patients can be added, removed, reassigned a new priority, etc.\n");
+                "in a variety of ways - patients can be added, removed, reassigned a new priority, etc.\n" +
+                "Note: A lower priority means a more urgent patient.\n");
     }
 
     void mainOptions() {
@@ -68,10 +71,26 @@ public class Menu {
 
         switch(addSelectionInt) {
             case 1:
-                //add patient with assigned priority function
+                Scanner addName = new Scanner(System.in);
+                Scanner addPriority = new Scanner(System.in);
+
+                System.out.println("Name: ");
+                String name = addName.next();
+
+                System.out.println("Priority Value: ");
+                int priority = addPriority.nextInt();
+
+                queue.add(name, priority);
+                this.addSuccess();
                 break;
             case 2:
-                //add patient to end of queue function
+                Scanner addJustName = new Scanner(System.in);
+
+                System.out.println("Name: ");
+                String justName = addJustName.next();
+
+                queue.add(justName);
+                this.addSuccess();
                 break;
             case 3:
                 this.mainOptions();
@@ -81,6 +100,11 @@ public class Menu {
                 this.mainOptions();
                 break;
         }
+    }
+
+    void addSuccess(){
+        System.out.println("Patient added successfully.\n");
+        this.mainOptions();
     }
 
     void removeMenu() {

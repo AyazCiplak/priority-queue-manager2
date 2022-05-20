@@ -2,7 +2,6 @@ package managementsystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
 
@@ -11,8 +10,11 @@ public class Main {
         newMenu.initialMessage();
         newMenu.mainOptions();
 
-        PriorityQueue queue = new PriorityQueue();
-        //static ArrayList<PriorityQueue.Patient> patients
+        //ArrayList<String> patients = new ArrayList<>();
+        //HashMap<String, Integer> nameToIndex = new HashMap<String, Integer>();
+
+
+
     }
 
 }
