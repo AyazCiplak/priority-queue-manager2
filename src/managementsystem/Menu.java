@@ -169,14 +169,15 @@ public class Menu {
         this.mainOptions();
     }
 
+    //to add: cases where the patient cannot be found (in later options especially)
     void findMenu() {
 
         Scanner findOptionInt = new Scanner(System.in);
         System.out.println("FIND MENU:\n" +
                 "------------------\n" +
-                "1 - Check if patient is in the line\n" +
+                "1 - Check if patient is in the queue\n" +
                 "2 - Find patient's priority\n" +
-                "3 - Find most urgent patient in line\n" +
+                "3 - Find most urgent patient in queue\n" +
                 "4 - Go back\n\n" +
                 "Selection (enter a number): ");
 
@@ -184,13 +185,39 @@ public class Menu {
 
         switch(findSelectionInt) {
             case 1:
-                //check if patient is in the line function
+                Scanner findName = new Scanner(System.in);
+
+                System.out.println("Name: ");
+                String name = findName.next();
+
+                if(queue.contains(name)){
+                    System.out.println("Patient is in queue.");
+                } else {
+                    System.out.println("Patient is not in queue.");
+                }
+
+                this.mainOptions();
                 break;
             case 2:
-                //find patient's priority function
+
+                Scanner findNamesPriority = new Scanner(System.in);
+
+                System.out.println("Name: ");
+                String namePriority = findNamesPriority.next();
+
+                if(queue.contains(namePriority)){
+                    System.out.println("Patient's priority is " + queue.getPriority(namePriority));
+                } else {
+                    System.out.println("Error: Patient does not exist");
+                }
+
+                this.mainOptions();
                 break;
             case 3:
-                //find most urgent patient in line function
+                //add case where no patients exist in the line
+                System.out.println("Highest priority patient is " + queue.peekMin() + ", with priority value " + queue.getMinPriority());
+
+                this.mainOptions();
                 break;
             case 4:
                 this.mainOptions();
