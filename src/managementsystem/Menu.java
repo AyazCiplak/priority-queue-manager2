@@ -78,7 +78,7 @@ public class Menu {
                 String name = addName.next();
 
                 System.out.println("Priority Value: ");
-                int priority = addPriority.nextInt();
+                double priority = addPriority.nextDouble();
 
                 queue.add(name, priority);
                 this.addSuccess();
@@ -121,18 +121,38 @@ public class Menu {
 
         int removeSelectionInt = removeOptionInt.nextInt();
 
+        //to add: cases when there are no patients / no existing patients with the name inputted
         switch (removeSelectionInt) {
             case 1:
-                //remove patient by name function
+                Scanner removeName = new Scanner(System.in);
+
+                System.out.println("Name: ");
+                String name = removeName.next();
+
+                queue.remove(name);
+                this.removeSuccess();
                 break;
             case 2:
-                //remove highest priority patient function
+                queue.removeMin();
+                this.removeSuccess();
                 break;
             case 3:
-                //remove all patients more urgent than a certain priority value function
+                Scanner removeMinPriority = new Scanner(System.in);
+
+                System.out.println("Threshold priority value: ");
+                double minPriority = removeMinPriority.nextDouble();
+
+                queue.removeUrgentPatients(minPriority);
+                this.removeSuccess();
                 break;
             case 4:
-                //remove all patients less urgent than a certain priority value function
+                Scanner removeMaxPriority = new Scanner(System.in);
+
+                System.out.println("Threshold priority value: ");
+                double maxPriority = removeMaxPriority.nextDouble();
+
+                queue.removeNonUrgentPatients(maxPriority);
+                this.removeSuccess();
                 break;
             case 5:
                 this.mainOptions();
@@ -142,6 +162,11 @@ public class Menu {
                 this.mainOptions();
                 break;
         }
+    }
+
+    void removeSuccess() {
+        System.out.println("Patient removed successfully.\n");
+        this.mainOptions();
     }
 
     void findMenu() {
