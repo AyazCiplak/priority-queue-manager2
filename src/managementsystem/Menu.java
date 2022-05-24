@@ -229,14 +229,39 @@ public class Menu {
         }
     }
 
-    void priorityChange() {
-        //change a patient's priority function
 
+    void priorityChange() {
+
+
+        Scanner switchName = new Scanner(System.in);
+        Scanner switchPriority = new Scanner(System.in);
+
+        System.out.println("Name: ");
+        String name = switchName.next();
+
+        if(queue.contains(name)) {
+
+            System.out.println("New priority value: ");
+            double priority = switchPriority.nextDouble();
+
+            queue.changePriority(name, priority);
+
+            System.out.println("Patient priority switched successfully. \n");
+            this.mainOptions();
+
+        } else {
+
+            System.out.println("Error: Patient does not exist in queue.");
+            this.mainOptions();
+
+        }
     }
 
     void listPatients() {
 
-        //list patients by priority (also display total patients in queue)
+        System.out.println(queue.patients);
+        this.mainOptions();
+
     }
 
 }

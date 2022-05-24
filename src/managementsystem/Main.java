@@ -10,10 +10,6 @@ public class Main {
         newMenu.initialMessage();
         newMenu.mainOptions();
 
-        //ArrayList<String> patients = new ArrayList<>();
-        //HashMap<String, Integer> nameToIndex = new HashMap<String, Integer>();
-
-
 
     }
 
