@@ -55,8 +55,7 @@ public class Menu {
 
     }
 
-
-
+    
     void addMenu() {
 
         Scanner addOptionInt = new Scanner(System.in);
@@ -77,11 +76,18 @@ public class Menu {
                 System.out.println("Name: ");
                 String name = addName.next();
 
-                System.out.println("Priority Value: ");
-                double priority = addPriority.nextDouble();
+                if(queue.contains(name)){
 
-                queue.add(name, priority);
-                this.addSuccess();
+                    this.addFailure();
+
+                } else {
+
+                    System.out.println("Priority Value: ");
+                    double priority = addPriority.nextDouble();
+
+                    queue.add(name, priority);
+                    this.addSuccess();
+                }
                 break;
             case 2:
                 Scanner addJustName = new Scanner(System.in);
@@ -89,8 +95,16 @@ public class Menu {
                 System.out.println("Name: ");
                 String justName = addJustName.next();
 
-                queue.add(justName);
-                this.addSuccess();
+                if(queue.contains(justName)){
+
+                    this.addFailure();
+
+                } else {
+
+                    queue.add(justName);
+                    this.addSuccess();
+                }
+
                 break;
             case 3:
                 this.mainOptions();
@@ -104,6 +118,11 @@ public class Menu {
 
     void addSuccess(){
         System.out.println("Patient added successfully.\n");
+        this.mainOptions();
+    }
+
+    void addFailure() {
+        System.out.println("Error: Patient already exists in queue.\n");
         this.mainOptions();
     }
 
@@ -257,6 +276,8 @@ public class Menu {
         }
     }
 
+    //do not list null patient
+    //add case where there are no patients in the line
     void listPatients() {
 
         System.out.println(queue.patients);

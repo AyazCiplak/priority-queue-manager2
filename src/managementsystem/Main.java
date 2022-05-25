@@ -1,7 +1,5 @@
 package managementsystem;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Main {
 
@@ -9,8 +7,6 @@ public class Main {
         Menu newMenu = new Menu();
         newMenu.initialMessage();
         newMenu.mainOptions();
-
-
     }
 
 }
