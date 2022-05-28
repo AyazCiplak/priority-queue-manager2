@@ -12,8 +12,8 @@ class PriorityQueue{
 
     public PriorityQueue() {
 
-        patients = new ArrayList<Patient>();
-        nameToIndex = new HashMap<String, Integer>();
+        patients = new ArrayList<>();
+        nameToIndex = new HashMap<>();
 
         //Dummy node is created to start indexing at 1
         patients.add(new Patient("dummy", 0.0));
@@ -99,15 +99,11 @@ class PriorityQueue{
     }
 
     boolean contains(String name){
-        if(nameToIndex.containsKey(name)){
-            return true;
-        } else {
-            return false;
-        }
+        return nameToIndex.containsKey(name);
     }
 
     double getPriority(String name) {
-        if(contains(name) != true) {
+        if(!contains(name)) {
             return -1;
         } else {
             return patients.get(nameToIndex.get(name).intValue()).priority;
@@ -115,7 +111,7 @@ class PriorityQueue{
     }
 
     double getMinPriority() {
-        if(patients.isEmpty() == true || patients.size() == 1) {
+        if(patients.isEmpty() || patients.size() == 1) {
             return -1;
         } else {
             return patients.get(1).priority;
@@ -123,7 +119,7 @@ class PriorityQueue{
     }
 
     String removeMin() {
-        if(patients.isEmpty() == true || patients.size() == 1) {
+        if(patients.isEmpty() || patients.size() == 1) {
             return null;
         } else {
             int initialIndex = 1;
@@ -146,7 +142,7 @@ class PriorityQueue{
     }
 
     String peekMin() {
-        if(patients.isEmpty() == true || patients.size() ==1){
+        if(patients.isEmpty() || patients.size() ==1){
             return null;
         } else {
             return patients.get(1).name;
@@ -177,7 +173,7 @@ class PriorityQueue{
     }
 
     boolean remove(String name){
-        if (patients.isEmpty() == true || patients.size() == 1 || contains(name) == false) {
+        if (patients.isEmpty() || patients.size() == 1 || !contains(name)) {
             return false;
         } else {
 
@@ -200,7 +196,7 @@ class PriorityQueue{
     }
 
     boolean changePriority(String name, double priority) {
-        if (patients.isEmpty() == true || patients.size() == 1 || contains(name) == false) {
+        if (patients.isEmpty() || patients.size() == 1 || !contains(name)) {
             return false;
         } else if (patients.get(nameToIndex.get(name)).priority == priority){
             return true;
@@ -215,7 +211,7 @@ class PriorityQueue{
     }
 
     public ArrayList<Patient> removeUrgentPatients(double threshold){ //add if else trivial case
-        if (patients.isEmpty() == true || patients.size() == 1){
+        if (patients.isEmpty() || patients.size() == 1){
             return null;
         } else {
             ArrayList removedPatients = new ArrayList<Patient>();
@@ -231,8 +227,8 @@ class PriorityQueue{
             }
             System.out.println(removedPatients);
 
-            for (int i = 0; i < removedPatients.size(); i++){
-                Patient removedPatient = (Patient) removedPatients.get(i);
+            for (Object patient : removedPatients) {
+                Patient removedPatient = (Patient) patient;
                 String removedPatientName = removedPatient.name;
 
                 remove(removedPatientName);
@@ -247,7 +243,7 @@ class PriorityQueue{
 
 
     public ArrayList<Patient> removeNonUrgentPatients(double threshold){ //add if else trivial case
-        if (patients.isEmpty() == true || patients.size() == 1){
+        if (patients.isEmpty() || patients.size() == 1){
             return null;
         } else {
             ArrayList removedPatients = new ArrayList<Patient>();
@@ -262,8 +258,8 @@ class PriorityQueue{
                 }
             }
 
-            for (int i = 0; i < removedPatients.size(); i++){
-                Patient removedPatient = (Patient) removedPatients.get(i);
+            for (Object patient : removedPatients) {
+                Patient removedPatient = (Patient) patient;
                 String removedPatientName = removedPatient.name;
 
                 remove(removedPatientName);
@@ -274,7 +270,7 @@ class PriorityQueue{
     }
 
     static class Patient {
-        private String name;
+        private final String name;
         private double priority;
 
         Patient(String name, double priority) {
