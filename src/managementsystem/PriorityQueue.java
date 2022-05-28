@@ -3,14 +3,14 @@ package managementsystem;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PriorityQueue{
+class PriorityQueue{
 
     //Note: A lower priority value indicates a higher priority. A patient with a priority value of 0.0 has the highest possible priority.
 
     ArrayList<Patient> patients;
     HashMap<String, Integer> nameToIndex;
 
-    PriorityQueue() {
+    public PriorityQueue() {
 
         patients = new ArrayList<Patient>();
         nameToIndex = new HashMap<String, Integer>();

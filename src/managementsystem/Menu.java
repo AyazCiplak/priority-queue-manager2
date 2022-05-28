@@ -6,7 +6,6 @@ public class Menu {
 
     PriorityQueue queue = new PriorityQueue();
 
-
     void initialMessage() {
         System.out.println("""
                 This program is designed to simulate an emergency room priority queue, with patients being sorted based on an assigned numerical priority value.\s
@@ -44,9 +43,7 @@ public class Menu {
                 this.mainOptions();
             }
         }
-
     }
-
 
     void addMenu() {
 
