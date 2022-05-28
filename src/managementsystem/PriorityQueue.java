@@ -18,7 +18,10 @@ public class PriorityQueue{
         //Dummy node is created to start indexing at 1
         patients.add(new Patient("dummy", 0.0));
 
+        //nameToIndex.values().size();
+
     }
+
 
     //Heap element methods
     private int parent(int i){

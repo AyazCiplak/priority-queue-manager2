@@ -6,6 +6,7 @@ public class Menu {
 
     PriorityQueue queue = new PriorityQueue();
 
+
     void initialMessage() {
         System.out.println("""
                 This program is designed to simulate an emergency room priority queue, with patients being sorted based on an assigned numerical priority value.\s
@@ -214,14 +215,18 @@ public class Menu {
                 if (queue.contains(namePriority)) {
                     System.out.println("Patient's priority is " + queue.getPriority(namePriority));
                 } else {
-                    System.out.println("Error: Patient does not exist");
+                    System.out.println("Error: Patient does not exist in queue.");
                 }
                 this.mainOptions();
             }
             case 3 -> {
-                //add case where no patients exist in the line
-                System.out.println("Highest priority patient is " + queue.peekMin() + ", with priority value " + queue.getMinPriority());
+                if(queue.patients.size() > 1) {
+                    System.out.println("Highest priority patient is " + queue.peekMin() + ", with priority value " + queue.getMinPriority());
+                } else {
+                    System.out.println("Error: There are no patients in queue.");
+                }
                 this.mainOptions();
+
             }
             case 4 -> this.mainOptions();
             default -> {
@@ -230,6 +235,8 @@ public class Menu {
             }
         }
     }
+
+
 
 
     void priorityChange() {
@@ -262,6 +269,12 @@ public class Menu {
     //do not list null patient
     //add case where there are no patients in the line
     void listPatients() {
+
+        //int size = queue.nameToIndex.size();
+
+
+            //System.out.println(queue.nameToIndex.values());
+
 
         System.out.println(queue.patients);
         this.mainOptions();
