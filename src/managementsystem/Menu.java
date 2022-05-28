@@ -68,10 +68,9 @@ public class Menu {
                 Scanner addPriority = new Scanner(System.in);
                 System.out.println("Name: ");
                 String name = addName.next();
+
                 if (queue.contains(name)) {
-
                     this.addFailure();
-
                 } else {
 
                     System.out.println("Priority Value: ");
@@ -86,11 +85,8 @@ public class Menu {
                 System.out.println("Name: ");
                 String justName = addJustName.next();
                 if (queue.contains(justName)) {
-
                     this.addFailure();
-
                 } else {
-
                     queue.add(justName);
                     this.addSuccess();
                 }
@@ -129,7 +125,6 @@ public class Menu {
 
         int removeSelectionInt = removeOptionInt.nextInt();
 
-        //to add: cases when there are no patients / no existing patients with the name inputted
         switch (removeSelectionInt) {
             case 1 -> {
                 Scanner removeName = new Scanner(System.in);
@@ -139,14 +134,16 @@ public class Menu {
                     queue.remove(name);
                     this.removeSuccess();
                 } else {
-
                     this.removeFailure();
-
                 }
             }
             case 2 -> {
-                queue.removeMin();
-                this.removeSuccess();
+                if(queue.patients.size()<=1){
+                    this.removeFailure();
+                } else {
+                    queue.removeMin();
+                    this.removeSuccess();
+                }
             }
             case 3 -> {
                 Scanner removeMinPriority = new Scanner(System.in);
@@ -180,7 +177,7 @@ public class Menu {
         this.mainOptions();
     }
 
-    //to add: cases where the patient cannot be found (in later options especially)
+
     void findMenu() {
 
         Scanner findOptionInt = new Scanner(System.in);
@@ -226,7 +223,6 @@ public class Menu {
                     System.out.println("Error: There are no patients in queue.");
                 }
                 this.mainOptions();
-
             }
             case 4 -> this.mainOptions();
             default -> {
@@ -237,10 +233,7 @@ public class Menu {
     }
 
 
-
-
     void priorityChange() {
-
 
         Scanner switchName = new Scanner(System.in);
         Scanner switchPriority = new Scanner(System.in);
@@ -259,26 +252,13 @@ public class Menu {
             this.mainOptions();
 
         } else {
-
             System.out.println("Error: Patient does not exist in queue.");
             this.mainOptions();
-
         }
     }
 
-    //do not list null patient
-    //add case where there are no patients in the line
     void listPatients() {
-
-        //int size = queue.nameToIndex.size();
-
-
-            //System.out.println(queue.nameToIndex.values());
-
-
-        System.out.println(queue.patients);
+        System.out.println(queue.nameToIndex);
         this.mainOptions();
-
     }
-
 }

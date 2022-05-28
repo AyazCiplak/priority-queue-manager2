@@ -18,8 +18,6 @@ public class PriorityQueue{
         //Dummy node is created to start indexing at 1
         patients.add(new Patient("dummy", 0.0));
 
-        //nameToIndex.values().size();
-
     }
 
 
@@ -36,7 +34,7 @@ public class PriorityQueue{
         return 2*i + 1;
     }
 
-    //swaps two elements in the ArrayList and HashMap
+    //Swaps two elements in the ArrayList and HashMap
     void swap(int i, int j){
         Patient tmp = patients.get(i);
         patients.set(i, patients.get(j));
