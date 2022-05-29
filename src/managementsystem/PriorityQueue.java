@@ -86,6 +86,10 @@ class PriorityQueue{
             } else {
                 minIndex = lcIndex;
             }
+
+            if(lcPriority == rcPriority) {
+                minIndex = lcIndex;
+            }
         }
 
         if (i != minIndex){
@@ -102,7 +106,7 @@ class PriorityQueue{
         if(!contains(name)) {
             return -1;
         } else {
-            return patients.get(nameToIndex.get(name)).priority;
+            return patients.get(nameToIndex.get(name).intValue()).priority;
         }
     }
 
@@ -114,28 +118,25 @@ class PriorityQueue{
         }
     }
 
-    void removePatient(int initialIndex, String name) {
-        if(initialIndex == (patients.size()-1)) {
-            patients.remove(initialIndex);
-            nameToIndex.remove(name);
-
-        } else {
-            swap(initialIndex, (patients.size() - 1)); //swaps index (that will be removed) with the lowest element in tree, hashMap indices are also swapped
-
-            patients.remove((patients.size() - 1)); //removes name from patients list
-            downHeap(initialIndex);
-            nameToIndex.remove(name); // removes patient from hashMap
-
-        }
-    }
-
     String removeMin() {
         if(patients.isEmpty() || patients.size() == 1) {
             return null;
         } else {
             int initialIndex = 1;
             String name = patients.get(1).name;
-            removePatient(initialIndex, name);
+
+            if(initialIndex == (patients.size()-1)) {
+                patients.remove(initialIndex);
+                nameToIndex.remove(name);
+
+            } else {
+                swap(initialIndex, (patients.size() - 1)); //swaps index (that will be removed) with lowest element in tree, hashMap indices are also swapped
+
+                patients.remove((patients.size() - 1)); //removes name from patients list
+                downHeap(initialIndex);
+                nameToIndex.remove(name); // removes patient from hashMap
+
+            }
             return name;
         }
     }
@@ -175,8 +176,21 @@ class PriorityQueue{
         if (patients.isEmpty() || patients.size() == 1 || !contains(name)) {
             return false;
         } else {
-            int initialIndex = nameToIndex.get(name); //gets index of name
-            removePatient(initialIndex, name);
+
+            int initialIndex = nameToIndex.get(name).intValue(); //gets index of name
+
+            if(initialIndex == (patients.size()-1)) {
+                patients.remove(initialIndex);
+                nameToIndex.remove(name);
+
+            } else {
+                swap(initialIndex, (patients.size() - 1)); //swaps index (that will be removed) with lowest element in tree, hashMap indices are also swapped
+
+                patients.remove((patients.size() - 1)); //removes name from patients list
+                downHeap(initialIndex);
+                nameToIndex.remove(name); // removes patient from hashMap
+
+            }
             return true;
         }
     }
@@ -192,50 +206,67 @@ class PriorityQueue{
             downHeap(patientIndex);
             upHeap(patientIndex);
             return true;
-        }
-    }
 
-
-    ArrayList<Patient> removeMoreUrgent(boolean indicator, double threshold){
-        if (patients.isEmpty() || patients.size() == 1){
-            return null;
-        } else {
-            ArrayList<Patient> removedPatients = new ArrayList<>();
-            ArrayList<Patient> keptPatients = new ArrayList<>();
-
-                for (int i = 1; i < patients.size(); i++) {
-                    double patientPriority = patients.get(i).priority;
-
-                    if(indicator) {
-                        if (patientPriority <= threshold) { //patient has more urgent priority than threshold
-                            removedPatients.add(patients.get(i));
-                        } else {
-                            keptPatients.add(patients.get(i));
-                        }
-                    } else {
-                        if (patientPriority >= threshold) { //patient has more urgent priority than threshold
-                            removedPatients.add(patients.get(i));
-                        } else {
-                            keptPatients.add(patients.get(i));
-                        }
-                    }
-                }
-
-            for (Patient patient : removedPatients) {
-                String removedPatientName = patient.name;
-                remove(removedPatientName);
-            }
-            return removedPatients;
         }
     }
 
     public ArrayList<Patient> removeUrgentPatients(double threshold){ //add if else trivial case
-        return removeMoreUrgent(true, threshold);
+        if (patients.isEmpty() || patients.size() == 1){
+            return null;
+        } else {
+            ArrayList removedPatients = new ArrayList<Patient>();
+            ArrayList keptPatients = new ArrayList<Patient>();
+
+            for (int i = 1; i < patients.size(); i++){
+                double patientPriority = patients.get(i).priority;
+                if (patientPriority <= threshold){ //patient has more urgent priority than threshold
+                    removedPatients.add(patients.get(i));
+                } else {
+                    keptPatients.add(patients.get(i));
+                }
+            }
+            System.out.println(removedPatients);
+
+            for (Object patient : removedPatients) {
+                Patient removedPatient = (Patient) patient;
+                String removedPatientName = removedPatient.name;
+
+                remove(removedPatientName);
+
+            }
+            System.out.println(patients);
+            return removedPatients;
+
+
+        }
     }
 
 
     public ArrayList<Patient> removeNonUrgentPatients(double threshold){ //add if else trivial case
-        return removeMoreUrgent(false, threshold);
+        if (patients.isEmpty() || patients.size() == 1){
+            return null;
+        } else {
+            ArrayList removedPatients = new ArrayList<Patient>();
+            ArrayList keptPatients = new ArrayList<Patient>();
+
+            for (int i = 1; i < patients.size(); i++){
+                double patientPriority = patients.get(i).priority;
+                if (patientPriority >= threshold){ //patient has more urgent priority than threshold
+                    removedPatients.add(patients.get(i));
+                } else {
+                    keptPatients.add(patients.get(i));
+                }
+            }
+
+            for (Object patient : removedPatients) {
+                Patient removedPatient = (Patient) patient;
+                String removedPatientName = removedPatient.name;
+
+                remove(removedPatientName);
+
+            }
+            return removedPatients;
+        }
     }
 
     static class Patient {
@@ -274,7 +305,9 @@ class PriorityQueue{
         //Compares a Patient and any other Object
         public boolean equals (Object obj) {
             //Case: Object isn't a Patient object
-            if(!(obj instanceof Patient objPatient)) return false;
+            if(!(obj instanceof PriorityQueue.Patient)) return false;
+
+            Patient objPatient = (Patient) obj;
 
             //Will only return true if object matches name and priority
             return this.name.equals(objPatient.name) && this.priority == objPatient.priority;
