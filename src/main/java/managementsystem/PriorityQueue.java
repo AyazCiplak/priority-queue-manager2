@@ -7,8 +7,8 @@ class PriorityQueue{
 
     //Note: A lower priority value indicates a higher priority. A patient with a priority value of 0.0 has the highest possible priority.
 
-    ArrayList<Patient> patients;
-    HashMap<String, Integer> nameToIndex;
+    public ArrayList<Patient> patients;
+    public HashMap<String, Integer> nameToIndex;
 
     public PriorityQueue() {
 
