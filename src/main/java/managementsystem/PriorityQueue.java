@@ -34,7 +34,7 @@ class PriorityQueue{
         return 2*i + 1;
     }
 
-    //Swaps two elements in the ArrayList and HashMap
+    //helper method - swaps two elements in the ArrayList and HashMap
     void swap(int i, int j){
         Patient tmp = patients.get(i);
         patients.set(i, patients.get(j));
@@ -199,6 +199,7 @@ class PriorityQueue{
         }
     }
 
+    //helper method for removeUrgentPatients() and removeNonUrgentPatients()
     ArrayList<Patient> removeMoreUrgent(boolean indicator, double threshold){
         if (patients.isEmpty() || patients.size() == 1){
             return null;

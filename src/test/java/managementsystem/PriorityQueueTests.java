@@ -123,21 +123,6 @@ public class PriorityQueueTests {
         assertNotEquals(20, testPriorityQueue.rightChild(10));
     }
 
-
-    @Test
-    @DisplayName("Swap Test - Single Pair of Patients")
-    void swapPatients() {
-
-    }
-
-    @Test
-    //@Tag("Swap Test - Multiple Pairs of Patients")
-    void swapMultiplePatients(){
-
-    }
-
-    //Other swap tests
-
     // ---------- upHeap() unit tests ----------
     @Test
     @DisplayName("UpHeap Test 1 - UpHeaping Top Patient")
@@ -298,6 +283,13 @@ public class PriorityQueueTests {
     @DisplayName("Add Test 2 (Two Parameters) - Adding new patient + priority to structure")
     void addNewPatientAndPriority() {
 
+        testPriorityQueue.add("Helen", 146.0);
+
+        assertTrue(testPriorityQueue.nameToIndex.containsKey("Helen"));
+        assertEquals(146.0, testPriorityQueue.patients.get(8).getPriority());
+        assertEquals(8, testPriorityQueue.nameToIndex.size());
+
+
     }
 
     // ---------- add() unit tests (single parameter) ----------
@@ -325,15 +317,101 @@ public class PriorityQueueTests {
         );
     }
 
-    //removeMin tests
-    //remove tests
-    //peekMin tests
-    //changePriority tests
-    //removeMoreUrgent tests (?)
-    //removeUrgentPatients tests
-    //removeNonUrgentPatients tests
+    //removeMin() unit test
+    @Test
+    @DisplayName("RemoveMin Test 1 - Removing Min Patient Multiple Times")
+    void removeMinMultipleTimes() {
+        testPriorityQueue.removeMin();
+        testPriorityQueue.removeMin();
+        testPriorityQueue.removeMin();
 
+        assertFalse(testPriorityQueue.nameToIndex.containsKey("Charles"));
+        assertTrue(testPriorityQueue.nameToIndex.containsKey("Dave"));
+        assertEquals(4, testPriorityQueue.nameToIndex.size());
+    }
 
+    //remove() unit test
+    @Test
+    @DisplayName("Remove Test 1 - Removing Patients From Queue")
+    void removeMultiplePatients() {
+        testPriorityQueue.remove("Charles");
+        testPriorityQueue.remove("Frank");
 
+        assertAll(
+                () -> assertFalse(testPriorityQueue.nameToIndex.containsKey("Charles")),
+                () -> assertFalse(testPriorityQueue.nameToIndex.containsKey("Frank")),
+                () -> assertTrue(testPriorityQueue.nameToIndex.containsKey("Greta")),
+                () -> assertEquals(5, testPriorityQueue.nameToIndex.size()),
+                () -> assertFalse(testPriorityQueue.remove("Zara"))
+        );
+    }
 
+    //peekMin() unit test
+    @Test
+    @DisplayName("PeekMin Test 1 - Verifying Lowest Priority Patient")
+    void checkMinimumPatient() {
+        assertEquals("Arthur", testPriorityQueue.peekMin());
+    }
+
+    // ---------- changePriority() unit tests ----------
+    @Test
+    @DisplayName("ChangePriority Test 1 - Change Multiple Patient Priorities")
+    void changeMultiplePriorities() {
+        ArrayList<PriorityQueue.Patient> testPatients = makeDeepCopy(testPriorityQueue.patients);
+        HashMap<String,Integer> testNameToIndex = new HashMap<>(testPriorityQueue.nameToIndex);
+
+        testPriorityQueue.changePriority("Dave", 45.0);
+        testPriorityQueue.changePriority("Edwin", 102.0);
+
+        assertTrue(testPriorityQueue.nameToIndex.containsKey("Dave"));
+        assertTrue(testPriorityQueue.nameToIndex.containsKey("Edwin"));
+        assertNotEquals(testPatients, testPriorityQueue.patients);
+    }
+
+    @Test
+    @DisplayName("ChangePriority Test 2 - Change and Revert Patient Priorities")
+    void changeAndRevertPriorities() {
+        ArrayList<PriorityQueue.Patient> originalPatients = makeDeepCopy(testPriorityQueue.patients);
+        HashMap<String,Integer> originalNameToIndex = new HashMap<>(testPriorityQueue.nameToIndex);
+
+        testPriorityQueue.changePriority("Greta", 1608.0);
+        testPriorityQueue.changePriority("Boris", 1.0);
+
+        testPriorityQueue.changePriority("Greta", 70.0);
+        testPriorityQueue.changePriority("Boris", 20.0);
+
+        assertEquals(testPriorityQueue.patients, originalPatients);
+        assertEquals(testPriorityQueue.nameToIndex, originalNameToIndex);
+    }
+
+    //removeUrgentPatients() unit test
+    @Test
+    @DisplayName("RemoveUrgentPatients Test 1 - Removing Patients Below a Priority")
+    void removeHighUrgencyPatients() {
+        testPriorityQueue.removeUrgentPatients(30.0);
+
+        assertAll(
+                //Note: Method should also remove patient at the specified priority value
+            () -> assertFalse(testPriorityQueue.nameToIndex.containsKey("Charles")),
+            () -> assertFalse(testPriorityQueue.nameToIndex.containsKey("Boris")),
+            () -> assertFalse(testPriorityQueue.nameToIndex.containsKey("Arthur")),
+            () -> assertTrue(testPriorityQueue.nameToIndex.containsKey("Dave")),
+            () -> assertEquals(5, testPriorityQueue.patients.size())
+        );
+    }
+
+    //removeNonUrgentPatients() unit test
+    @Test
+    @DisplayName("RemoveNonUrgentPatients Test 1 - Removing Patients Above a Priority")
+    void removeLowUrgencyPatients() {
+        testPriorityQueue.removeNonUrgentPatients(60);
+
+        assertAll(
+                //Note: Method should also remove patient at the specified priority value
+                () -> assertFalse(testPriorityQueue.nameToIndex.containsKey("Frank")),
+                () -> assertFalse(testPriorityQueue.nameToIndex.containsKey("Greta")),
+                () -> assertTrue(testPriorityQueue.nameToIndex.containsKey("Edwin")),
+                () -> assertEquals(5, testPriorityQueue.nameToIndex.size())
+        );
+    }
 }
