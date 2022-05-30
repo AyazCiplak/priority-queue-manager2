@@ -22,15 +22,15 @@ class PriorityQueue{
 
 
     //Heap element methods
-    private int parent(int i){
+    int parent(int i){
         return i/2;
     }
 
-    private int leftChild(int i){
+    int leftChild(int i){
         return 2*i;
     }
 
-    private int rightChild(int i){
+    int rightChild(int i){
         return 2*i + 1;
     }
 

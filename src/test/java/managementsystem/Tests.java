@@ -1,6 +1,5 @@
 package managementsystem;
 
-import managementsystem.PriorityQueue;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
