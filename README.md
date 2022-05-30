@@ -1,4 +1,4 @@
-# Priority Queue Manager (In Development)
+# Priority Queue Manager
 A program designed to simulate and manipulate an emergency room queue, with patients sorted by an assigned numerical priority value.
 
 The program can: 
@@ -15,3 +15,11 @@ The program can:
 
 
 # How the software works:
+- A minHeap is created using a Java ArrayList to permit easy organisation and sorting of patients
+- An interactive Menu class is used to permit users to access the program's functionality
+- To reduce runtime, a HashMap and recursive methods are employed where possible
+- Most functionality relies on retrieving info from the minHeap and maintaining its structure
+
+# Testing: 
+- The JUnit 5 framework was employed to create unit tests for all main methods of the PriorityQueue class, and to ensure proper functionality throughout the project's development.
+
