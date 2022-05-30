@@ -114,6 +114,30 @@ class PriorityQueue{
         }
     }
 
+    boolean add(String name, double priority){
+        if(contains(name)) {
+            return false;
+        } else {
+            Patient newPatient = new Patient(name, priority);
+            patients.add(newPatient);
+            nameToIndex.put(name, (patients.size() -1));
+            upHeap((patients.size()-1));
+            return true;
+        }
+    }
+
+   boolean add(String name){
+        if(contains(name)){
+            return false;
+        } else {
+            Patient newPatient = new Patient(name, Double.POSITIVE_INFINITY);
+            patients.add(newPatient);
+            nameToIndex.put(name, (patients.size()-1));
+            return true;
+        }
+    }
+
+    //Helper method for removeMin() and remove()
     void removePatient(int initialIndex, String name) {
         if(initialIndex == (patients.size()-1)) {
             patients.remove(initialIndex);
@@ -140,36 +164,6 @@ class PriorityQueue{
         }
     }
 
-    String peekMin() {
-        if(patients.isEmpty() || patients.size() ==1){
-            return null;
-        } else {
-            return patients.get(1).name;
-        }
-    }
-
-    boolean add(String name, double priority){
-        if(contains(name)) {
-            return false;
-        } else {
-            Patient newPatient = new Patient(name, priority);
-            patients.add(newPatient);
-            nameToIndex.put(name, (patients.size() -1));
-            upHeap((patients.size()-1));
-            return true;
-        }
-    }
-
-   boolean add(String name){
-        if(contains(name)){
-            return false;
-        } else {
-            Patient newPatient = new Patient(name, Double.POSITIVE_INFINITY);
-            patients.add(newPatient);
-            nameToIndex.put(name, (patients.size()-1));
-            return true;
-        }
-    }
 
     boolean remove(String name){
         if (patients.isEmpty() || patients.size() == 1 || !contains(name)) {
@@ -179,6 +173,14 @@ class PriorityQueue{
             int initialIndex = nameToIndex.get(name); //gets index of name
             removePatient(initialIndex, name);
             return true;
+        }
+    }
+
+    String peekMin() {
+        if(patients.isEmpty() || patients.size() ==1){
+            return null;
+        } else {
+            return patients.get(1).name;
         }
     }
 
