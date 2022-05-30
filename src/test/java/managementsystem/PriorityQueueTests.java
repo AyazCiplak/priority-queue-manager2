@@ -358,7 +358,6 @@ public class PriorityQueueTests {
     @DisplayName("ChangePriority Test 1 - Change Multiple Patient Priorities")
     void changeMultiplePriorities() {
         ArrayList<PriorityQueue.Patient> testPatients = makeDeepCopy(testPriorityQueue.patients);
-        HashMap<String,Integer> testNameToIndex = new HashMap<>(testPriorityQueue.nameToIndex);
 
         testPriorityQueue.changePriority("Dave", 45.0);
         testPriorityQueue.changePriority("Edwin", 102.0);
