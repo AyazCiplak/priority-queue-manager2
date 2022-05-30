@@ -126,6 +126,7 @@ class PriorityQueue{
         }
     }
 
+    //Adds patient to back of queue
    boolean add(String name){
         if(contains(name)){
             return false;
